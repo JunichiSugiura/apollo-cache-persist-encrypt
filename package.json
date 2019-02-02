@@ -1,12 +1,6 @@
 {
-  "name": "apollo-cache-persist",
+  "name": "apollo-cache-persist-encrypt",
   "version": "0.1.1",
-  "description": "Simple persistence for all Apollo cache implementations",
-  "author": "James Reggio <james.reggio@gmail.com>",
-  "contributors": [
-    "James Reggio <james.reggio@gmail.com>",
-    "Peggy Rayzis <peggy@meteor.com>"
-  ],
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -14,13 +8,12 @@
   "typings": "./lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apollographql/apollo-cache-persist.git"
+    "url": "git+https://github.com/LukeSugiura/apollo-cache-persist-encrypt.git"
   },
-  "homepage": "https://github.com/apollographql/apollo-cache-persist#readme",
-  "bugs": "https://github.com/apollographql/apollo-cache-persist/issues",
+  "homepage": "https://github.com/LukeSugiura/apollo-cache-persist-encrypt#readme",
+  "bugs": "https://github.com/LukeSugiura/apollo-cache-persist-encrypt/issues",
   "scripts": {
-    "build:browser":
-      "browserify ./lib/bundle.umd.js -o=./lib/bundle.js && npm run minify:browser",
+    "build:browser": "browserify ./lib/bundle.umd.js -o=./lib/bundle.js && npm run minify:browser",
     "build": "tsc -p .",
     "bundle": "rollup -c",
     "clean": "rimraf lib/* && rimraf coverage/*",
@@ -28,8 +21,7 @@
     "danger": "danger run --verbose",
     "deploy": "./scripts/deploy.sh",
     "filesize": "npm run build && npm run build:browser && bundlesize",
-    "minify:browser":
-      "uglifyjs -c -m -o ./lib/bundle.min.js -- ./lib/bundle.js",
+    "minify:browser": "uglifyjs -c -m -o ./lib/bundle.min.js -- ./lib/bundle.js",
     "postbuild": "npm run bundle",
     "prebuild": "npm run clean",
     "precommit": "lint-staged",
@@ -51,7 +43,11 @@
     ]
   },
   "jest": {
-    "moduleFileExtensions": ["ts", "js", "json"],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
     "transform": {
       "\\.ts$": "ts-jest"
     },
@@ -61,10 +57,15 @@
         "useBabelrc": true
       }
     },
-    "transformIgnorePatterns": ["node_modules/(?!apollo-cache-hermes)"]
+    "transformIgnorePatterns": [
+      "node_modules/(?!apollo-cache-hermes)"
+    ]
   },
-  "dependencies": {},
+  "dependencies": {
+    "crypto-js": "^3.1.9-1"
+  },
   "devDependencies": {
+    "@types/crypto-js": "^3.1.43",
     "@types/node": "^8.0.55",
     "@types/react-native": "^0.50.8",
     "apollo-cache": "^1.0.2",

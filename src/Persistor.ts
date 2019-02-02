@@ -1,6 +1,7 @@
 import Log from './Log';
 import Storage from './Storage';
 import Cache from './Cache';
+import * as CryptoJS from 'crypto-js';
 
 import { ApolloPersistOptions } from './types';
 
@@ -16,12 +17,13 @@ export default class Persistor<T> {
   storage: Storage<T>;
   maxSize?: number;
   paused: boolean;
+  encryptionKey?: string;
 
   constructor(
     { log, cache, storage }: PersistorConfig<T>,
     options: ApolloPersistOptions<T>
   ) {
-    const { maxSize = 1024 * 1024 } = options;
+    const { maxSize = 1024 * 1024, encryptionKey } = options;
 
     this.log = log;
     this.cache = cache;
@@ -30,6 +32,10 @@ export default class Persistor<T> {
 
     if (maxSize) {
       this.maxSize = maxSize;
+    }
+
+    if (encryptionKey) {
+      this.encryptionKey = encryptionKey;
     }
   }
 
@@ -52,7 +58,15 @@ export default class Persistor<T> {
         this.paused = false;
       }
 
-      await this.storage.write(data);
+      if (this.encryptionKey && typeof data === 'string') {
+        const encryptedData = CryptoJS.AES.encrypt(
+          data,
+          this.encryptionKey
+        ).toString();
+        await this.storage.write(encryptedData);
+      } else {
+        await this.storage.write(data);
+      }
 
       this.log.info(
         typeof data === 'string'
@@ -70,7 +84,13 @@ export default class Persistor<T> {
       const data = await this.storage.read();
 
       if (data != null) {
-        await this.cache.restore(data);
+        if (this.encryptionKey && typeof data === 'string') {
+          const bytes = CryptoJS.AES.decrypt(data, this.encryptionKey);
+          const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+          await this.cache.restore(decryptedString);
+        } else {
+          await this.cache.restore(data);
+        }
 
         this.log.info(
           typeof data === 'string'
