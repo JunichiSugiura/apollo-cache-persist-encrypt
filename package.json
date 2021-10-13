@@ -73,7 +73,9 @@
       "node_modules/(?!apollo-cache-hermes)"
     ]
   },
-  "dependencies": {},
+  "dependencies": {
+    "crypto-js": "^3.1.9-1"
+  },
   "peerDependencies": {
     "@apollo/client": "^3.2.5"
   },
@@ -87,7 +89,6 @@
     "browserify": "16.5.0",
     "bundlesize": "0.18.0",
     "codecov": "3.8.0",
-    "crypto-js": "^3.1.9-1",
     "commitizen": "^4.2.4",
     "conventional-changelog-cli": "^2.1.1",
     "cz-conventional-changelog": "3.3.0",
