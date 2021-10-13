@@ -23,7 +23,6 @@ This repository is a fork from [apollographql/apollo-cache-persist](https://gith
 
 ## Basic Usage
 
-<<<<<<< HEAD
 ```sh
 npm install --save apollo3-cache-persist
 ```
@@ -41,8 +40,6 @@ By default, the contents of your Apollo cache will be immediately restored
 (asynchronously, see [how to persist data before rendering](./docs/faq.md#how-do-i-wait-for-the-cache-to-be-restored-before-rendering-my-app)), and will be persisted upon every write to the cache (with a
 short debounce interval).
 
-=======
->>>>>>> f154c52 (rename repo to apollo-cache-persist-encrypt)
 ### Examples
 
 #### React Native
@@ -61,8 +58,20 @@ await persistCache({
   storage: new AsyncStorageWrapper(AsyncStorage),
 =======
   storage: AsyncStorage,
+<<<<<<< HEAD
   encryptionKey: 'my-super-secret-key' // here
 >>>>>>> f154c52 (rename repo to apollo-cache-persist-encrypt)
+=======
+  // Here
+  encrypt: {
+    secretKey: 'my-super-secret-key',
+    // You may provide an optional error handler for decryption
+    onError: async (error: Error, persistor) => {
+      console.warn(error.message)
+      await persistor.purge()
+    },
+  }
+>>>>>>> 913106b (add new encrypt option to readme)
 });
 
 // Continue setting up Apollo as usual.
