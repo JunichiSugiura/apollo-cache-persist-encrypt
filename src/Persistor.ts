@@ -17,6 +17,7 @@ export default class Persistor<T> {
   maxSize?: number;
   paused: boolean;
   persistenceMapper?: PersistenceMapperFunction;
+  encryptionKey?: string;
 
   constructor(
     { log, cache, storage }: PersistorConfig<T>,
@@ -25,6 +26,7 @@ export default class Persistor<T> {
     const {
       maxSize = 1024 * 1024,
       persistenceMapper,
+      encryptionKey
     } = options;
 
     this.log = log;
@@ -38,6 +40,10 @@ export default class Persistor<T> {
 
     if (maxSize) {
       this.maxSize = maxSize;
+    }
+
+    if (encryptionKey) {
+      this.encryptionKey = encryptionKey;
     }
   }
 
