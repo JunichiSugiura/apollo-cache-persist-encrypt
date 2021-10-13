@@ -7,6 +7,9 @@ Supports web and React Native. [See all storage providers.](./docs/storage-provi
 
 [0]: https://github.com/apollographql/apollo-client/tree/master/src/cache/inmemory
 [1]: https://github.com/convoyinc/apollo-cache-hermes
+# apollo-cache-persist-encrypt
+
+This repository is a fork from [apollographql/apollo-cache-persist](https://github.com/apollographql/apollo-cache-persist) and extends Apollo Persist Options to accept encryptionKey.
 
 
 - [Basic Usage](#basic-usage)
@@ -20,6 +23,7 @@ Supports web and React Native. [See all storage providers.](./docs/storage-provi
 
 ## Basic Usage
 
+<<<<<<< HEAD
 ```sh
 npm install --save apollo3-cache-persist
 ```
@@ -37,6 +41,8 @@ By default, the contents of your Apollo cache will be immediately restored
 (asynchronously, see [how to persist data before rendering](./docs/faq.md#how-do-i-wait-for-the-cache-to-be-restored-before-rendering-my-app)), and will be persisted upon every write to the cache (with a
 short debounce interval).
 
+=======
+>>>>>>> f154c52 (rename repo to apollo-cache-persist-encrypt)
 ### Examples
 
 #### React Native
@@ -51,7 +57,12 @@ const cache = new InMemoryCache({...});
 // await before instantiating ApolloClient, else queries might run before the cache is persisted
 await persistCache({
   cache,
+<<<<<<< HEAD
   storage: new AsyncStorageWrapper(AsyncStorage),
+=======
+  storage: AsyncStorage,
+  encryptionKey: 'my-super-secret-key' // here
+>>>>>>> f154c52 (rename repo to apollo-cache-persist-encrypt)
 });
 
 // Continue setting up Apollo as usual.
@@ -61,6 +72,7 @@ const client = new ApolloClient({
   ...
 });
 ```
+<<<<<<< HEAD
 
 See a complete example in the [React Native example](./examples/react-native/App.tsx).
 
@@ -99,3 +111,5 @@ We all do this for free... so please be nice 😁.
 - [@wtrocki](https://github.com/wtrocki)
 - [@wodCZ](https://github.com/wodCZ)
 - [@jspizziri](https://github.com/jspizziri)
+=======
+>>>>>>> f154c52 (rename repo to apollo-cache-persist-encrypt)
