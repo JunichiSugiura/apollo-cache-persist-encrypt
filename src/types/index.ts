@@ -22,6 +22,13 @@ type StorageType<T, TSerialize extends boolean> = TSerialize extends true
   ? PersistentStorage<string>
   : PersistentStorage<T>;
 
+export type OnEncryptionError = (error: Error) => void;
+
+export interface EncryptOptions {
+  onError?: OnEncryptionError;
+  secretKey: string;
+}
+
 export interface ApolloPersistOptions<
   TSerialized,
   TSerialize extends boolean = true
@@ -35,5 +42,5 @@ export interface ApolloPersistOptions<
   maxSize?: number | false;
   persistenceMapper?: PersistenceMapperFunction;
   debug?: boolean;
-  encryptionKey?: string;
+  encrypt?: EncryptOptions;
 }
