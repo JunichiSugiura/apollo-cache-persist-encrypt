@@ -1,7 +1,7 @@
 export default {
   input: 'lib/index.js',
   output: {
-    name: 'apollo-cache-persist',
+    name: 'apollo-cache-persist-encrypt',
     file: 'lib/bundle.umd.js',
     format: 'umd',
     sourcemap: true,
